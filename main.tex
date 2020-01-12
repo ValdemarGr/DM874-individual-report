@@ -1,0 +1,172 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper,top=24mm,bottom=24mm,left=24mm,right=24mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{[Times-New-Roman-400.ttf]}
+\linespread{1.25}
+
+
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{blindtext}
+\usepackage{dirtytalk}
+\usepackage{xcolor}
+\usepackage[australian,american]{babel}
+\usepackage{comment}
+\usepackage{datetime}
+\usepackage{csquotes}
+
+\usepackage{hyperref}
+\hypersetup{
+colorlinks=false,
+linkcolor=blue,
+filecolor=magenta,
+urlcolor=cyan,
+}
+\urlstyle{same}
+\usepackage{cleveref}
+
+\usepackage{listings}
+\newcommand\YAMLcolonstyle{\color{red}\mdseries}
+\newcommand\YAMLkeystyle{\color{black}\bfseries}
+\newcommand\YAMLvaluestyle{\color{blue}\mdseries}
+
+\makeatletter
+
+% here is a macro expanding to the name of the language
+% (handy if you decide to change it further down the road)
+\newcommand\language@yaml{yaml}
+
+\expandafter\expandafter\expandafter\lstdefinelanguage
+\expandafter{\language@yaml}
+{
+keywords={true,false,null,y,n},
+keywordstyle=\color{darkgray}\bfseries,
+basicstyle=\YAMLkeystyle,                                 % assuming a key comes first
+sensitive=false,
+comment=[l]{\#},
+morecomment=[s]{/*}{*/},
+commentstyle=\color{purple}\ttfamily,
+stringstyle=\YAMLvaluestyle\ttfamily,
+% moredelim=[l][\color{orange}]{\&},
+moredelim=[l][\color{magenta}]{*},
+moredelim=**[il][\YAMLcolonstyle{:}\YAMLvaluestyle]{:},   % switch to value style at :
+morestring=[b]',
+morestring=[b]",
+literate =    {---}{{\ProcessThreeDashes}}3
+{>}{{\textcolor{red}\textgreater}}1
+{|}{{\textcolor{red}\textbar}}1
+{\ -\ }{{\mdseries\ -\ }}3,
+}
+
+% switch to key style at EOL
+\lst@AddToHook{EveryLine}{\ifx\lst@language\language@yaml\YAMLkeystyle\fi}
+\makeatother
+
+\newcommand\ProcessThreeDashes{\llap{\color{cyan}\mdseries-{-}-}}
+
+\usepackage[style=numeric]{biblatex}
+
+\renewcommand{\tt}{\texttt}
+%\newcommand{\ctt}{#1}{\begin{center}\texttt{#1}\end{center}}
+
+\title{DM874 -- Microservices and DevOps \\ {\large Microservice-based Messaging Application} \\ Individual report}
+
+\date{\longdate\today}
+
+\author{
+Grange, Valdemar \\ \texttt{sagra16@student.sdu.dk}
+%\and
+%Gregoar, Mia \\ \texttt{user@student.sdu.dk}
+}
+
+\definecolor{dkgreen}{rgb}{0,0.45,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.30,0,0.30}
+
+
+% Default settings for code listings
+% Default settings for code listings
+\lstset{frame=tb,
+language=C,
+aboveskip=3mm,
+belowskip=3mm,
+showstringspaces=false,
+columns=flexible,
+basicstyle={\small\ttfamily},
+numbers=left,
+numberstyle=\footnotesize,
+keywordstyle=\color{dkgreen}\bfseries,
+commentstyle=\color{dkgreen},
+stringstyle=\color{mauve},
+frame=single,
+breaklines=true,
+breakatwhitespace=false
+tabsize=1
+}
+
+\begin{document}
+
+    \begin{titlepage}
+        \begin{center}
+            \vspace*{-2cm}\hspace*{1cm}
+
+            \vspace{2.5cm}
+
+
+            {\let\newpage\relax\maketitle}
+            \thispagestyle{empty}
+
+            \vspace{0.8cm}
+
+            \begin{minipage}{.8\textwidth}
+
+            \end{minipage}
+
+        \end{center}
+    \end{titlepage}
+
+
+    \newpage
+
+    % https://tex.stackexchange.com/a/291312
+    \setcounter{tocdepth}{2}
+
+    % The structure below is a guideline for the project description. The main sections are given in the following list. Feel free to insert subsections as you see fit.
+
+    % 1 - Introduction. This section gives an overview of the motivations and results of what you have done. Describe the challenge that you want to address, motivating why it is relevant.
+
+    % 2 - Preliminaries. Give a brief overview of the background knowledge needed to understand your report. Provide references to what you have used and report the main concepts that your work is based on.
+
+    % 3 - Technical Description. Here you explain the technical work you have carried out. You may include code snippets where relevant, and refer to source code in the project files. Try to explain the development choices you did taking into account important properties such as deployability, availability, reusability, security, modifiability, performance.
+
+    % 4 - Related Work and Discussion. In this section you review the relevant state of the art. This may include alternative solutions to the same challenge you have tried to address in your project, or alternative methodologies that you may have followed (e.g., choice of other technologies for implementing the project). Provide a discussion on the implications of your choices in the design of your work and the technologies/techniques that you have used.
+
+    %     References (or Bibliography) This section should contain references to the articles/websites/resources/etc. cited in your report.
+
+
+\section{Individual contribution}
+I have setup all the static services like Postgres, Redis, Kafka, Zookeeper, Prometheus, Helm, Grafana, Loki including deployment configurations.
+I have designed the architecture of the project and have made many of the core design decisions.
+I have written the frontend, the webserver (websockets), and the router services.
+\section{Division of labor}
+    Initially I explained the architecture and the tasks, people could choose the tasks they wanted.
+    I took it upon myself to embark on going above the scope of the course, so I took responsibility by handling all the Kafka, Zookeeper and Redis parts.
+    As two of our group members didn't contribute, the division of labor was changed underway as people stopped responding.
+\section{Communication}
+    Communication has been good (from the contributing members), we started off meeting, but after everyone knew what was going on we used facebook messenger for small inquires.
+    We also used Trello for task assignments.
+\section{What went well}
+    We completed all the goals we set, which we see as a achievement since the scope of the project was a bit large since we aimed for complete correctness.
+\section{What didn't go well}
+    We didn't account for 2/5 of our group abandoning us.
+\section{Main technical takeaway}
+    The most technical takeaway, was the exploration of my own redis library I wrote for Scala, since I didn't find any that fit my particular need.
+    (https://github.com/valdemargr/sdis).
+\section{Organizational takeaways}
+    I have never managed people in a software project like this.
+    I think the biggest lesson is that, much more communication is needed than you would initially suspect.
+
+\clearpage
+
+\end{document}
